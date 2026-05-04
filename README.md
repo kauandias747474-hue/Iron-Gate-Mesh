@@ -9,57 +9,58 @@
 
 ## 🇧🇷 Português: Documentação Técnica de Engenharia
 
-O **IronGate Mesh** é uma malha de serviço distribuída projetada para segurança e observabilidade de alta performance. Esta versão opera integralmente em **User Space**, utilizando captura de pacotes otimizada e um motor de consenso distribuído para garantir proteção resiliente sem a complexidade de dependências diretas do Kernel.
+O **IronGate Mesh** é uma malha de serviço distribuída projetada para segurança e observabilidade de alta performance. Esta versão opera através de um modelo híbrido: processamento de rede otimizado em **User Space** para facilidade de deploy, e um plano de dados em **C** para futuras extensões em nível de Kernel.
 
 ### 🏗️ Arquitetura do Ecossistema
 
-#### 1. Plano de Dados (Data Plane - Go / C)
-Responsável pela ingestão, análise e filtragem de pacotes em tempo real.
-*   **Packet Sniffing**: Utiliza bibliotecas de captura de baixo nível para interceptação direta de interfaces de rede.
-*   **Software Filtering**: Avaliação de regras de firewall processadas por goroutines paralelas, garantindo o processamento de alto tráfego com baixa latência.
-*   **Atomic Policies**: Aplica listas de bloqueio (blacklists) vindas do plano de controle instantaneamente através de operações atômicas em memória.
+#### 1. Plano de Controle (Control Plane - `irongate-core`) [Rust]
+O cérebro distribuído da malha, focado em consistência rigorosa.
+*   **Consenso Raft**: Implementação de máquina de estados distribuída para garantir que políticas de segurança sejam idênticas em todo o cluster.
+*   **Segurança Pragmática**: Uso intensivo de Rust para eliminar vazamentos de memória e *race conditions* em operações 24/7.
+*   **Gestão de Auditoria**: Registro centralizado de eventos e controle de admissão de novos nós.
 
-#### 2. Plano de Controle (Control Plane - Rust)
-O cérebro da malha distribuída, focado em consistência rigorosa e segurança de memória.
-*   **Consenso com Raft**: Implementa o algoritmo Raft para garantir que todos os nós da malha concordem sobre as políticas de segurança de forma síncrona.
-*   **Segurança Pragmática**: A escolha do Rust elimina *data races* e vazamentos de memória, garantindo estabilidade para sistemas que operam 24/7.
-*   **Distribuição de Estado**: Propaga atualizações de segurança para todo o cluster em milissegundos após a detecção de uma ameaça.
+#### 2. Plano de Dados e Kernel (`irongate-kernel` & `irongate-network`) [C / Go]
+Responsável pela ingestão e filtragem de pacotes.
+*   **Filtragem de Software**: Avaliação de pacotes em tempo real utilizando goroutines paralelas e operações atômicas.
+*   **Otimização C**: Estrutura preparada para filtragem *stateless* e balanceamento de carga de baixo nível.
+*   **Políticas Atômicas**: Atualização imediata de blacklists sem necessidade de reiniciar o serviço.
 
-#### 3. Camada de Observabilidade (Visuals - Go)
-*   **Telemetry Stream**: Transforma o fluxo binário de pacotes em métricas estruturadas e telemetria em tempo real.
-*   **Dashboard API**: Expõe dados agregados de performance e saúde dos nós para visualização executiva e técnica.
+#### 3. Camada de Observabilidade (`irongate-visuals`) [Go]
+*   **Telemetria**: Extração de métricas de performance diretamente do processamento de rede.
+*   **Dashboard API**: Exposição de dados estruturados sobre tráfego, pacotes descartados e integridade dos nós.
 
 ---
 
 ## 🇺🇸 English: Engineering Technical Documentation
 
-**IronGate Mesh** is a distributed service mesh designed for high-performance security and observability. This version operates entirely in **User Space**, leveraging optimized packet capture and a distributed consensus engine to provide resilient protection without the complexity of direct Kernel dependencies.
+**IronGate Mesh** is a distributed service mesh designed for high-performance security and observability. This version operates through a hybrid model: optimized **User Space** network processing for deployment flexibility, and a **C** data plane for future Kernel-level extensions.
 
 ### 🏗️ Ecosystem Architecture
 
-#### 1. Data Plane (User Space - Go / C)
-Responsible for real-time packet ingestion, analysis, and filtering.
-*   **Packet Sniffing**: Utilizes low-level capture libraries for direct network interface interception.
-*   **Software Filtering**: Firewall rule evaluation processed by parallel goroutines, ensuring high-throughput processing with low latency.
-*   **Atomic Policies**: Instantly applies blocklists from the control plane using memory-safe atomic operations.
+#### 1. Control Plane (`irongate-core`) [Rust]
+The distributed intelligence of the mesh, focused on strict consistency.
+*   **Raft Consensus**: Distributed state machine implementation to ensure security policies remain identical across the cluster.
+*   **Pragmatic Safety**: Leverages Rust to eliminate memory leaks and race conditions in 24/7 operations.
+*   **Audit Management**: Centralized event logging and node admission control.
 
-#### 2. Control Plane (User Space - Rust)
-The distributed mesh intelligence, focused on strict consistency and memory safety.
-*   **Raft Consensus**: Implements the Raft algorithm to ensure all mesh nodes agree on security policies synchronously.
-*   **Pragmatic Safety**: Rust eliminates data races and memory leaks, ensuring stability for 24/7 security systems.
-*   **State Distribution**: Propagates security updates to the entire cluster within milliseconds upon threat detection.
+#### 2. Data Plane & Kernel (`irongate-kernel` & `irongate-network`) [C / Go]
+Responsible for packet ingestion and filtering.
+*   **Software Filtering**: Real-time packet evaluation using parallel goroutines and atomic operations.
+*   **C Optimization**: Architecture prepared for stateless filtering and low-level load balancing.
+*   **Atomic Policies**: Immediate blacklist updates without service interruption.
 
-#### 3. Observability Layer (Visuals - Go)
-*   **Telemetry Stream**: Converts raw binary packet flow into structured metrics and real-time telemetry.
-*   **Dashboard API**: Exposes aggregated performance data and node health metrics for executive and technical visualization.
+#### 3. Observability Layer (`irongate-visuals`) [Go]
+*   **Telemetry**: Performance metrics extraction directly from network processing.
+*   **Dashboard API**: Exposure of structured data regarding traffic, dropped packets, and node health.
 
 ---
 
-## 📁 Estrutura do Repositório / Repository Structure
-
-| Módulo / Module | Linguagem / Language | Responsabilidade / Responsibility |
-| :--- | :--- | :--- |
-| **irongate-core** | Rust | Consenso de cluster (Raft) e gestão de estado / Cluster consensus and state |
-| **irongate-network** | Go / C | Captura e filtragem de pacotes / Packet capture and filtering |
-| **irongate-visuals** | Go | Telemetria e Dashboard / Telemetry and Dashboard |
-| **deploy** | Docker | Orquestração e escalonamento / Orchestration and scaling |
+## 📁 Estrutura do Projeto / Project Structure
+```text
+irongate/
+├── .github/workflows/       # CI/CD Pipelines
+├── irongate-core/           # Control Plane (Rust: Raft, Audit, Admission)
+├── irongate-kernel/         # Data Plane (C: Filter, Load Balancer)
+├── irongate-visuals/        # Observability (Go: Metrics, Dashboard)
+├── scripts/                 # Automation (Build, Chaos Testing)
+└── README.md                # Project Documentation
