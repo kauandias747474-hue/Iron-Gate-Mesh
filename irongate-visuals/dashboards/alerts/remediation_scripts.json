@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "remediation_strategies": [
+    {
+      "trigger_alert": "HighTrafficAnomaly",
+      "action_type": "shell_command",
+      "script_path": "scripts/setup_bpf_env.sh",
+      "arguments": ["--aggressive-mode", "--flush"],
+      "description": "Limpa as tabelas eBPF e ativa filtros de descarte imediato."
+    },
+    {
+      "trigger_alert": "ConsensusLoss",
+      "action_type": "powershell_script",
+      "script_path": "scripts/build.ps1",
+      "arguments": ["-RestartService", "-Force"],
+      "description": "Reinicia o binário do Core caso o quórum do Raft seja perdido."
+    },
+    {
+      "trigger_alert": "PpsThresholdExceeded",
+      "action_type": "shell_command",
+      "script_path": "scripts/bench_pps.sh",
+      "arguments": ["--generate-report", "--snapshot"],
+      "description": "Gera um relatório de diagnóstico para análise de ataque DDoS."
+    }
+  ]
+}
