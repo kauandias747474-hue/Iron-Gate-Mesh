@@ -1,1 +1,19 @@
-
+{
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "webhook_url": "https://discord.com/api/webhooks/seu_id_aqui",
+      "level": "critical"
+    },
+    "log_file": {
+      "enabled": true,
+      "path": "./alerts/alert_history.log",
+      "level": "all"
+    },
+    "admin_email": {
+      "enabled": false,
+      "address": "admin@irongate.io",
+      "level": "critical"
+    }
+  }
+}
