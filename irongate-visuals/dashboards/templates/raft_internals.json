@@ -1,1 +1,15 @@
-
+{
+  "template_name": "Raft Protocol Internals",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Replication Latency (ms)",
+      "target": "raft_metrics"
+    },
+    {
+      "type": "stat",
+      "title": "Current Term",
+      "description": "O número da eleição atual do cluster"
+    }
+  ]
+}
