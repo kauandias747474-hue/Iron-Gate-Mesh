@@ -1,1 +1,27 @@
-
+{
+  "dashboard_id": "resource_monitor",
+  "title": "System Resource Analysis",
+  "refresh_rate": "5s",
+  "components": [
+    {
+      "target": "irongate-core",
+      "type": "time_series",
+      "metrics": ["cpu_percentage", "memory_mb", "threads_active"],
+      "color": "#e74c3c"
+    },
+    {
+      "target": "irongate-visuals",
+      "type": "time_series",
+      "metrics": ["cpu_percentage", "memory_mb", "goroutines_count"],
+      "color": "#3498db"
+    },
+    {
+      "panel": "disk_io",
+      "title": "Logging/Snapshot Write Speed",
+      "unit": "MB/s"
+    }
+  ],
+  "alerts_linked": [
+    "PerformanceDegradation"
+  ]
+}
