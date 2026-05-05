@@ -1,1 +1,17 @@
-
+{
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "background": "#1a1a1a"
+  },
+  "nodes": [
+    { "id": "node-1", "label": "Líder Raft", "x": 960, "y": 540, "color": "#00ff00", "size": 30 },
+    { "id": "node-2", "label": "Borda A", "x": 600, "y": 300, "color": "#00bcff", "size": 20 },
+    { "id": "node-3", "label": "Borda B", "x": 1320, "y": 300, "color": "#00bcff", "size": 20 }
+  ],
+  "connections": {
+    "style": "dashed",
+    "animate_flow": true,
+    "flow_color": "#ffffff"
+  }
+}
