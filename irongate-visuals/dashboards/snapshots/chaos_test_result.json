@@ -1,1 +1,23 @@
-
+{
+  "test_metadata": {
+    "test_id": "CHAOS-001",
+    "timestamp": "2026-05-05T11:20:00Z",
+    "executor": "chaos_test.py"
+  },
+  "cluster_status": {
+    "total_nodes": 3,
+    "nodes_alive_before": 3,
+    "nodes_alive_after": 2,
+    "target_killed": "Node-02"
+  },
+  "raft_metrics": {
+    "election_triggered": true,
+    "new_leader_id": "Node-03",
+    "time_to_elect_ms": 350,
+    "consistency_check": "PASSED"
+  },
+  "performance_impact": {
+    "dropped_packets_during_failover": 12,
+    "latency_spike_ms": 45
+  }
+}
