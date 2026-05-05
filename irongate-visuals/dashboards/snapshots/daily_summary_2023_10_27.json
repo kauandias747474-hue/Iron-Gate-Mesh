@@ -1,1 +1,8 @@
-
+{
+  "date": "2023-10-27",
+  "total_packets": 150000000,
+  "avg_latency": "14ms",
+  "threats_blocked": 450,
+  "top_attacker_ip": "185.220.101.32",
+  "node_uptime": "99.99%"
+}
