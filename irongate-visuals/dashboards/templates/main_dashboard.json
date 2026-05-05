@@ -1,1 +1,27 @@
-
+{
+  "dashboard_id": "main_overview",
+  "title": "IronGate Mesh - Global Status",
+  "refresh_rate": "1s",
+  "layout": [
+    {
+      "panel": "status_cards",
+      "metrics": ["node_count", "leader_id", "cluster_term"],
+      "description": "Exibe se o cluster está estável e quem é o líder atual."
+    },
+    {
+      "panel": "traffic_gauge",
+      "title": "Total Throughput (PPS)",
+      "min": 0,
+      "max": 2000000,
+      "thresholds": {
+        "warn": 800000,
+        "critical": 1500000
+      }
+    },
+    {
+      "panel": "node_map",
+      "config_source": "network_map_cfg.json",
+      "description": "Renderiza a topologia visual dos nós conectados."
+    }
+  ]
+}
