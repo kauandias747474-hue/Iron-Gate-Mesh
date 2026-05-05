@@ -1,1 +1,16 @@
-
+{
+  "template_name": "Security Deep Dive",
+  "panels": [
+    {
+      "type": "table",
+      "title": "Top Attacker IPs",
+      "datasource": "last_incident.json",
+      "columns": ["IP", "Attack_Type", "Packet_Count", "Action"]
+    },
+    {
+      "type": "map",
+      "title": "Geolocation of Blocked Traffic",
+      "enabled": true
+    }
+  ]
+}
