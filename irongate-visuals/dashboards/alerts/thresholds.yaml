@@ -1,1 +1,9 @@
+monitoring:
+  max_pps: 1000000      
+  max_latency_ms: 50        
+  cpu_usage_critical: 90   
+  error_rate_threshold: 0.05
 
+consensus:
+  election_timeout_limit: 5 
+  missed_heartbeats_max: 3
