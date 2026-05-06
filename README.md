@@ -15,19 +15,19 @@ O **IronGate Mesh** é uma malha de serviço distribuída projetada para seguran
 
 #### 1. Plano de Controle (Control Plane - `irongate-core`) [Rust]
 O cérebro distribuído da malha, focado em consistência rigorosa.
-*   **Consenso Raft**: Implementação de máquina de estados distribuída para garantir que políticas de segurança sejam idênticas em todo o cluster.
-*   **Segurança Pragmática**: Uso intensivo de Rust para eliminar vazamentos de memória e *race conditions* em operações 24/7.
-*   **Gestão de Auditoria**: Registro centralizado de eventos e controle de admissão de novos nós.
+* **Consenso Raft**: Implementação de máquina de estados distribuída para garantir que políticas de segurança sejam idênticas em todo o cluster.
+* **Segurança Pragmática**: Uso intensivo de Rust para eliminar vazamentos de memória e *race conditions* em operações 24/7.
+* **Gestão de Auditoria**: Registro centralizado de eventos e controle de admissão de novos nós.
 
 #### 2. Plano de Dados e Kernel (`irongate-kernel` & `irongate-network`) [C / Go]
 Responsável pela ingestão e filtragem de pacotes.
-*   **Filtragem de Software**: Avaliação de pacotes em tempo real utilizando goroutines paralelas e operações atômicas.
-*   **Otimização C**: Estrutura preparada para filtragem *stateless* e balanceamento de carga de baixo nível.
-*   **Políticas Atômicas**: Atualização imediata de blacklists sem necessidade de reiniciar o serviço.
+* **Filtragem de Software**: Avaliação de pacotes em tempo real utilizando goroutines paralelas e operações atômicas.
+* **Otimização C**: Estrutura preparada para filtragem *stateless* e balanceamento de carga de baixo nível.
+* **Políticas Atômicas**: Atualização imediata de blacklists sem necessidade de reiniciar o serviço.
 
 #### 3. Camada de Observabilidade (`irongate-visuals`) [Go]
-*   **Telemetria**: Extração de métricas de performance diretamente do processamento de rede.
-*   **Dashboard API**: Exposição de dados estruturados sobre tráfego, pacotes descartados e integridade dos nós.
+* **Telemetria**: Extração de métricas de performance diretamente do processamento de rede.
+* **Dashboard API**: Exposição de dados estruturados sobre tráfego, pacotes descartados e integridade dos nós.
 
 ---
 
@@ -39,19 +39,19 @@ Responsável pela ingestão e filtragem de pacotes.
 
 #### 1. Control Plane (`irongate-core`) [Rust]
 The distributed intelligence of the mesh, focused on strict consistency.
-*   **Raft Consensus**: Distributed state machine implementation to ensure security policies remain identical across the cluster.
-*   **Pragmatic Safety**: Leverages Rust to eliminate memory leaks and race conditions in 24/7 operations.
-*   **Audit Management**: Centralized event logging and node admission control.
+* **Raft Consensus**: Distributed state machine implementation to ensure security policies remain identical across the cluster.
+* **Pragmatic Safety**: Leverages Rust to eliminate memory leaks and race conditions in 24/7 operations.
+* **Audit Management**: Centralized event logging and node admission control.
 
 #### 2. Data Plane & Kernel (`irongate-kernel` & `irongate-network`) [C / Go]
 Responsible for packet ingestion and filtering.
-*   **Software Filtering**: Real-time packet evaluation using parallel goroutines and atomic operations.
-*   **C Optimization**: Architecture prepared for stateless filtering and low-level load balancing.
-*   **Atomic Policies**: Immediate blacklist updates without service interruption.
+* **Software Filtering**: Real-time packet evaluation using parallel goroutines and atomic operations.
+* **C Optimization**: Architecture prepared for stateless filtering and low-level load balancing.
+* **Atomic Policies**: Immediate blacklist updates without service interruption.
 
 #### 3. Observability Layer (`irongate-visuals`) [Go]
-*   **Telemetry**: Performance metrics extraction directly from network processing.
-*   **Dashboard API**: Exposure of structured data regarding traffic, dropped packets, and node health.
+* **Telemetry**: Performance metrics extraction directly from network processing.
+* **Dashboard API**: Exposure of structured data regarding traffic, dropped packets, and node health.th.
 
 ---
 
