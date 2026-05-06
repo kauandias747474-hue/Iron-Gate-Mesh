@@ -206,3 +206,47 @@ Responsible for packet ingestion and filtering.
 *   **Async Runtime (Tokio):** Using `spawn` to run background tasks, allowing simultaneous network processing and command listening.
 *   **Modularization:** Dividing logic into `mod` and `pub struct` to ensure scalability.
 *   **Iron Gate Mesh:** Every resolved error became a layer of protection.
+
+
+## 🇧🇷 Português: Descrição dos Módulos
+
+* **`irongate-core`**: Responsável pela inteligência. Garante que todos os nós sigam a mesma regra através do protocolo **Raft**.
+* **`irongate-kernel`**: Onde o "trabalho pesado" acontece. Escrito em **C** para rodar o mais próximo possível do hardware.
+* **`irongate-network`**: Gerencia o fluxo de pacotes que não foram descartados pelo kernel, usando a concorrência do **Go**.
+* **`irongate-visuals`**: Transforma os dados brutos de rede em gráficos e métricas compreensíveis.
+* **Nota de Engenharia**: Esta estrutura segue o padrão de **Monorepo com Workspace**, permitindo que os componentes em Rust, Go e C coexistam enquanto mantêm seus próprios ciclos de compilação e dependências isoladas.
+  
+## 🇺🇸 English: Module Description
+* **`irongate-core`**: Responsible for intelligence. Ensures all nodes follow the same rule through the **Raft** protocol.
+* **`irongate-kernel`**: Where the "heavy lifting" happens. Written in **C** to run as close as possible to the hardware.
+* **`irongate-network`**: Manages the flow of packets that were not discarded by the kernel, using **Go**'s concurrency.
+* **`irongate-visuals`**: Transforms raw network data into understandable charts and metrics.
+* **Engineering Note**: This structure follows the **Monorepo with Workspace** pattern, allowing Rust, Go, and C components to coexist while maintaining their own build cycles and isolated dependencies.
+
+  ## 📂 Estrutura de Pastas / Directory Structure
+```text
+irongate/
+├── .github/                   # CI/CD Automation (GitHub Actions)
+├── irongate-core/             # Control Plane
+│   ├── src/
+│   │   ├── raft/              # Consensus Logic
+│   │   ├── ebpf/              # eBPF Lifecycle Management
+│   │   └── main.rs            # Rust Entry Point
+│   └── Cargo.toml             
+├── irongate-kernel/           # Data Plane (C / eBPF)
+│   ├── include/               
+│   ├── filter.c               # Packet Filtering Programs
+│   └── Makefile               
+├── irongate-network/          # Network Processing (User Space)
+│   ├── engine/                # Parallel Processing Goroutines
+│   └── main.go                # Kernel-User Space Bridge
+├── irongate-visuals/          # Observability Layer
+│   ├── api/                   # Telemetry REST Endpoints
+│   ├── dashboard/             # Monitoring Dashboard
+│   └── go.mod                 
+├── scripts/                   # Support Tools
+│   ├── setup.sh               
+│   └── chaos_test.py          
+├── config/                    # Configuration Files
+└── README.md                  # Definitive Documentation
+  
