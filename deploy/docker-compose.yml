@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  node1:
+    build: 
+      context: ..
+      dockerfile: deploy/Dockerfile
+    networks:
+      irongate-net:
+        ipv4_address: 172.20.0.2
+  
+  visuals:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile # Ajuste para rodar o Go se necessário
+    ports:
+      - "8080:8080"
+    networks:
+      irongate-net:
+
+networks:
+  irongate-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
