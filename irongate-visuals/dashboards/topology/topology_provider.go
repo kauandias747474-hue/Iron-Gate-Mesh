@@ -13,7 +13,7 @@ type NodeMetadata struct {
 	Address  string    `json:"addr"`
 	LastSeen time.Time `json:"last_seen"`
 	IsLeader bool      `json:"is_leader"`
-
+	// Novos campos para bater com seu network_map_cfg.json
 	X        int       `json:"x"`
 	Y        int       `json:"y"`
 	Color    string    `json:"color"`
@@ -31,7 +31,6 @@ func NewTopologyProvider() *TopologyProvider {
 	tp.LoadStaticConfig()
 	return tp
 }
-
 
 func (tp *TopologyProvider) LoadStaticConfig() {
 	file, err := os.ReadFile("dashboards/network_map_cfg.json")
@@ -88,7 +87,7 @@ func (tp *TopologyProvider) GetActiveNodes() []NodeMetadata {
 
 	var active []NodeMetadata
 	for _, node := range tp.Nodes {
-	
+		
 		active = append(active, *node)
 	}
 	return active
