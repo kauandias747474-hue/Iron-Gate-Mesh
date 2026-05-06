@@ -1,0 +1,24 @@
+[package]
+name = "irongate-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Atualizado para 1.35 ou superior para garantir compatibilidade com as macros #[tokio::main]
+tokio = { version = "1.35", features = ["full"] }
+
+# Para ler e transformar o seu config.json (Derive é essencial)
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Para logs e auditoria com timestamp
+chrono = "0.4"
+
+# Gerenciador de memória de alta performance
+mimalloc = "0.1"
+
+[profile.release]
+opt-level = 3        # Máxima otimização
+lto = true           # Faz o binário rodar mais rápido ao interligar os módulos
+panic = "abort"      # Melhora a performance ao evitar "stack unwinding"
+strip = true         # Remove símbolos de debug (deixa o .exe bem menor)
