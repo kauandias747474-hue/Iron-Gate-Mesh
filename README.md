@@ -223,6 +223,9 @@ Responsible for packet ingestion and filtering.
 * **`irongate-visuals`**: Transforms raw network data into understandable charts and metrics.
 * **Engineering Note**: This structure follows the **Monorepo with Workspace** pattern, allowing Rust, Go, and C components to coexist while maintaining their own build cycles and isolated dependencies.
 
+  <img width="3027" height="3365" alt="User Space Control Plane-2026-05-09-131230" src="https://github.com/user-attachments/assets/1c346544-eaf2-4517-ba0b-d4284bc831cf" />
+
+
   ## 📂 Estrutura de Pastas / Directory Structure
 ```text
 irongate/
